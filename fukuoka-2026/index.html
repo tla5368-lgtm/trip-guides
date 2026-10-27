@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1f2a44">
+<meta name="description" content="11/20(금)~11/22(일) 나카스·텐진 도보 동선 · 맛집·관광·공항 역산">
+<meta property="og:type" content="website">
+<meta property="og:title" content="후쿠오카 2박 3일 먹방 가이드">
+<meta property="og:description" content="11/20(금)~11/22(일) · 1·2·3일차 동선과 구글맵 링크">
+<meta property="og:url" content="https://tla5368-lgtm.github.io/trip-guides/fukuoka-2026/">
+<title>후쿠오카 2박 3일 가이드</title>
+<style>
+:root{
+  --bg:#f6f3ee; --card:#ffffff; --ink:#1d2433; --sub:#5f6677; --line:#e6e0d6;
+  --indigo:#1f2a44; --vermilion:#d9482b; --gold:#c99a3b; --soft:#fbeee9;
+  --chip:#eef1f7; --ok:#2f7d5b; --warn:#b5541b;
+  --shadow:0 1px 2px rgba(20,25,40,.06),0 6px 18px rgba(20,25,40,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#12151d; --card:#1b1f2a; --ink:#ecedf1; --sub:#a3a9b8; --line:#2b3140;
+    --indigo:#0d1220; --soft:#2a1d1a; --chip:#252b39; --shadow:none;
+  }
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Malgun Gothic","Noto Sans KR","Hiragino Sans",sans-serif;
+  line-height:1.5; -webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+.wrap{max-width:640px;margin:0 auto;padding:0 16px}
+
+/* Hero */
+.hero{background:var(--indigo);color:#fff;padding:28px 0 22px;position:relative;overflow:hidden}
+.hero::after{
+  content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;border-radius:50%;
+  background:var(--vermilion);opacity:.9;
+}
+.hero .wrap{position:relative;z-index:1}
+.kicker{font-size:12px;letter-spacing:.18em;opacity:.75;text-transform:uppercase}
+.hero h1{margin:6px 0 4px;font-size:26px;letter-spacing:-.02em}
+.hero p{margin:0;opacity:.85;font-size:14px}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+.fact{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:10px 12px;font-size:12.5px}
+.fact b{display:block;font-size:11px;font-weight:600;opacity:.7;margin-bottom:2px;letter-spacing:.04em}
+.fact a{text-decoration:underline;text-underline-offset:2px}
+
+/* Tabs */
+.tabs{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line)}
+.tabs .wrap{display:flex;gap:6px;padding-top:10px;padding-bottom:10px}
+.tab{
+  flex:1;appearance:none;border:1px solid var(--line);background:var(--card);color:var(--ink);
+  border-radius:12px;padding:8px 4px;font:inherit;cursor:pointer;text-align:center;
+}
+.tab .d{display:block;font-weight:800;font-size:15px}
+.tab .w{display:block;font-size:11.5px;color:var(--sub)}
+.daypick{position:absolute;opacity:0;pointer-events:none}
+.tab{display:block;-webkit-tap-highlight-color:transparent;user-select:none}
+#r1:checked ~ .tabs label[for="r1"],#r2:checked ~ .tabs label[for="r2"],#r3:checked ~ .tabs label[for="r3"]{background:var(--vermilion);border-color:var(--vermilion);color:#fff}
+#r1:checked ~ .tabs label[for="r1"] .w,#r2:checked ~ .tabs label[for="r2"] .w,#r3:checked ~ .tabs label[for="r3"] .w{color:rgba(255,255,255,.85)}
+
+/* Day panel */
+.panel{display:none;padding:18px 0 8px}
+#r1:checked ~ main #d1,#r2:checked ~ main #d2,#r3:checked ~ main #d3{display:block}
+.dayhead{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:10px}
+.dayhead h2{margin:0;font-size:21px;letter-spacing:-.02em}
+.dayhead .theme{color:var(--sub);font-size:13px}
+.summary{background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:12px 14px;margin-bottom:12px;border:1px solid var(--line)}
+.summary ol{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px 4px;font-size:13px}
+.summary li{display:flex;align-items:center;gap:4px}
+.summary li:not(:last-child)::after{content:"›";color:var(--sub);margin-left:4px}
+.summary .t{font-variant-numeric:tabular-nums;color:var(--vermilion);font-weight:700}
+.routebtns{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 2px}
+.btn{
+  display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-size:13px;font-weight:700;
+  padding:9px 12px;border-radius:10px;background:var(--indigo);color:#fff;
+}
+@media (prefers-color-scheme: dark){.btn{background:#2c3a5e}}
+.btn.alt{background:var(--chip);color:var(--ink)}
+.btn svg{width:15px;height:15px;flex:none}
+.note{font-size:12px;color:var(--sub);margin:6px 0 0}
+
+/* Alert */
+.alert{background:var(--soft);border:1px solid #f0c9bd;border-radius:14px;padding:12px 14px;margin:12px 0;font-size:13.5px}
+@media (prefers-color-scheme: dark){.alert{border-color:#4a2c25}}
+.alert b{color:var(--vermilion)}
+.alert ul{margin:6px 0 0;padding-left:18px}
+
+/* Timeline */
+.tl{position:relative;margin:14px 0 0;padding:0;list-style:none}
+.tl::before{content:"";position:absolute;left:46px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.stop{display:grid;grid-template-columns:40px 1fr;gap:14px;margin-bottom:12px;position:relative}
+.time{font-variant-numeric:tabular-nums;font-weight:800;font-size:13.5px;padding-top:12px;text-align:right}
+.stop::after{
+  content:"";position:absolute;left:41px;top:16px;width:12px;height:12px;border-radius:50%;
+  background:var(--card);border:3px solid var(--vermilion);
+}
+.stop.move::after{border-color:var(--sub)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;box-shadow:var(--shadow);margin-left:8px}
+.cat{font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--gold)}
+.card h3{margin:2px 0 4px;font-size:16px;letter-spacing:-.01em}
+.card h3 small{font-weight:500;color:var(--sub);font-size:12px;margin-left:4px}
+.card p{margin:0;font-size:13.5px;color:var(--sub)}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.tag{font-size:11.5px;background:var(--chip);border-radius:999px;padding:3px 8px;color:var(--ink)}
+.tag.walk::before{content:"🚶 "}
+.tag.train::before{content:"🚃 "}
+.tag.clock::before{content:"🕘 "}
+.tag.wait{background:#fff1e6;color:var(--warn)}
+.tag.wait::before{content:"⏳ "}
+.tag.q{background:transparent;border:1px dashed var(--line);color:var(--sub)}
+@media (prefers-color-scheme: dark){.tag.wait{background:#3a2a1f;color:#f0a86f}}
+.maplink{display:inline-flex;align-items:center;gap:5px;margin-top:9px;font-size:12.5px;font-weight:700;color:var(--vermilion);text-decoration:none}
+.maplink svg{width:14px;height:14px}
+
+/* Info sections */
+.section{margin:22px 0}
+.section h4{margin:0 0 8px;font-size:15px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:13.5px}
+.box ul{margin:0;padding-left:18px}
+.box li{margin:3px 0}
+.foot{color:var(--sub);font-size:11.5px;text-align:center;padding:20px 0 36px}
+</style>
+</head>
+<body>
+<input class="daypick" type="radio" name="day" id="r1" checked>
+<input class="daypick" type="radio" name="day" id="r2">
+<input class="daypick" type="radio" name="day" id="r3">
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">Fukuoka · 2026.11.20 – 11.22</div>
+    <h1>후쿠오카 2박 3일 먹방 가이드</h1>
+    <p>친구 3명 · 나카스·텐진 도보 중심 · 경비 절약형</p>
+    <div class="facts">
+      <div class="fact"><b>가는 편</b>TW0203 인천 T1 10:10 → 후쿠오카 11:35</div>
+      <div class="fact"><b>오는 편</b>TW0206 후쿠오카 17:20 → 인천 T1 18:50</div>
+      <div class="fact"><b>숙소</b><a href="https://www.google.com/maps/search/?api=1&query=MK%20Hotels%20Nishinakasu&query_place_id=ChIJCzoI9WyRQTURh61LiaaVZNo" target="_blank" rel="noopener">MK호텔 니시나카스</a><br>5-20 Nishinakasu</div>
+      <div class="fact"><b>최근접역</b>나카스카와바타 · 텐진<br>위탁수하물 20kg</div>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="일자 선택">
+  <div class="wrap">
+    <label class="tab" id="t1" for="r1"><span class="d">1일차</span><span class="w">11/20 금</span></label>
+    <label class="tab" id="t2" for="r2"><span class="d">2일차</span><span class="w">11/21 토</span></label>
+    <label class="tab" id="t3" for="r3"><span class="d">3일차</span><span class="w">11/22 일</span></label>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- ===================== DAY 1 ===================== -->
+<section class="panel" id="d1" role="tabpanel" aria-labelledby="t1">
+  <div class="dayhead">
+    <div><h2>1일차 · 하카타 구시가지</h2><div class="theme">도착 → 명란 츠케멘 → 신사·사찰 → 모츠나베 → 노포</div></div>
+  </div>
+
+  <div class="summary">
+    <ol>
+      <li><span class="t">13:00</span>멘타이쥬</li>
+      <li><span class="t">14:15</span>토초지</li>
+      <li><span class="t">15:15</span>쿠시다신사</li>
+      <li><span class="t">16:00</span>캐널시티</li>
+      <li><span class="t">17:30</span>라쿠텐치</li>
+      <li><span class="t">20:30</span>후지요시</li>
+      <li><span class="t">22:00</span>야타이</li>
+    </ol>
+    <div class="routebtns">
+      <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/33.5912549,130.4046067/33.5912507,130.404067/33.5949498,130.4143877/33.5929546,130.4104589/33.5896305,130.4109478/33.5919086,130.4026133/33.5906066,130.4044107/33.5903962,130.4083/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg>1일차 동선 한번에 보기</a>
+    </div>
+    <p class="note">전부 도보권. 지도에서 이동수단을 '도보'로 바꿔 보세요.</p>
+  </div>
+
+  <div class="alert"><b>도착 동선</b> 11:35 착륙 → 입국 후 지하철 공항선으로 나카스카와바타역(약 10분) → 호텔에 짐 맡기고 13시부터 시작</div>
+
+  <ol class="tl">
+    <li class="stop"><div class="time">13:00</div><div class="card">
+      <div class="cat">점심 · 명란 츠케멘</div>
+      <h3>겐소 하카타 멘타이쥬 <small>★4.0 · 리뷰 6.1천</small></h3>
+      <p>후쿠오카 명물 명란 츠케멘·멘타이쥬 원조집.</p>
+      <div class="tags"><span class="tag walk">숙소 3분</span><span class="tag clock">매일 7:00–22:30</span><span class="tag wait">금요일 점심 웨이팅 가능</span><span class="tag q">가격 미확인</span></div>
+      <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Ganso%20Hakata%20Mentaiju%20Nishinakasu&query_place_id=ChIJk7fg25ORQTUR_LiBkFzRC94"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>구글맵에서 보기</a>
+    </div></li>
+
+    <li class="stop"><div class="time">14:15</div><div class="card">
+      <div class="cat">관광 · 사찰</div>
+      <h3>토초지 (東長寺)</h3>
+      <p>목조 좌상 대불과 붉은 오층탑. 대불 전각 안은 촬영 금지.</p>
+      <div class="tags"><span class="tag walk">숙소 약 15분</span><span class="tag clock">9:00–16:45</span><span class="tag q">대불 관람료 미확인</span></div>
+      <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Tochoji%20Temple%20Fukuoka&query_place_id=ChIJa2avE8GRQTURwD8yDpUT99g"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>구글맵에서 보기</a>
+    </div></li>
+
+    <li class="stop"><div class="time">15:15</div><div class="card">
+      <div class="cat">관광 · 신사</div>
+      <h3>쿠시다 신사 (櫛田神社)</h3>
+      <p>하카타의 수호 신사. 야마카사 축제 장식 가마와 천년 은행나무.</p>
+      <div class="tags"><span class="tag walk">토초지에서 약 7분</span><span class="tag clock">9:00–17:00</span><span class="tag">입장 무료</span></div>
+      <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Kushida%20Shrine%20Fukuoka&query_place_id=ChIJV2pTquqRQTURpI1FhH5siaE"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>구글맵에서 보기</a>
+    </div></li>
+
+    <li class="stop"><div class="time">16:00</div><div class="card">
+      <div class="cat">관광 · 쇼핑몰</div>
+      <h3>캐널시티 하카타</h3>
+      <p>운하를 낀 대형 복합몰. 지하 1층 분수쇼가 매시 정각·30분(블로그 기준).</p>
+      <div class="tags"><span class="tag walk">신사에서 약 5분</span><span class="tag clock">상점 10:00–21:00</span><span class="tag q">올해 일루미네이션 일정 미확인</span></div>
+      <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Canal%20City%20Hakata&query_place_id=ChIJYcOBiZWRQTUR0Rl0ehe67eA"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>구글맵에서 보기</a>
+    </div></li>
+
+    <li class="stop"><div class="time">17:30</div><div class="card">
+      <div class="cat">저녁 · 후쿠오카 대표 밥집</div>
+      <h3>모츠나베 라쿠텐치 텐진본점 <small>★4.7 · 리뷰 2.2만</small></h3>
+      <p>후쿠오카 대표 메뉴 모츠나베(소 곱창전골). 아크로스 후쿠오카 지하 2층.</p>
+      <div class="tags"><span class="tag walk">캐널시티에서 약 15분 · 숙소 2분</span><span class="tag clock">11:00–22:00</span><span class="tag wait">금 저녁 웨이팅 거의 확실</span><span class="tag q">예약 여부 미확인</span></div>
+      <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Motsunabe%20Rakutenchi%20Tenjin&query_place_id=ChIJ___8H46RQTURLusiwCoEPo0"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>구글맵에서 보기</a>
+    </div></li>
+
+    <li class="stop"><div class="time">20:30</div><div class="card">
+      <div class="cat">2차 · 노포 이자카야</div>
+      <h3>후지요시 (ふじ吉) <small>★4.3 · 리뷰 716</small></h3>
+      <p>오래된 야키토리 이자카야. 고마사바·오마카세 꼬치 추천 리뷰 다수.</p>
+      <div class="tags"><span class="tag walk">숙소 2분</span><span class="tag clock">16:00–23:00 · 일 휴무</span><span class="tag wait">예약 권장(리뷰 기준)</span></div>
+      <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Fujiyoshi%20Nishinakasu&query_place_id=ChIJMX_qYJGRQTURUQ7P1GzzKRs"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>구글맵에서 보기</a>
+    </div></li>
+
+    <li class="stop"><div class="time">22:00</div><div class="card">
+      <div class="cat">3차 · 산책</div>
+      <h3>나카스 야타이 거리</h3>
+      <p>강변 포장마차 거리. 구경하며 맥주 한잔. 1인 1메뉴 주문 룰이 있는 곳이 많음.</p>
+      <div class="tags"><span class="tag walk">숙소 약 5분</span><span class="tag q">영업시간·휴무 미확인 (비 오면 쉬기도)</span></div>
+      <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Nakasu%20Food%20Stalls%20Street&query_place_id=ChIJRbuyypWRQTURbITjwMeuLnM"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>구글맵에서 보기</a>
+    </div></li>
+  </ol>
+</section>
+
+<!-- ===================== DAY 2 ===================== -->
+<section class="panel" id="d2" role="tabpanel" aria-labelledby="t2">
+  <div class="dayhead">
+    <div><h2>2일차 · 다자이후 & 텐진</h2><div class="theme">텐만구 → 타이차즈케 → 오호리공원 → 가쿠우치 → 토리카와</div></div>
+  </div>
+
+  <div class="summary">
+    <ol>
+      <li><span class="t">09:00</span>니시테츠 텐진</li>
+      <li><span class="t">10:00</span>다자이후</li>
+      <li><span class="t">13:00</span>잇케이</li>
+      <li><span class="t">14:30</span>오호리공원</li>
+      <li><span class="t">15:45</span>후쿠오카성터</li>
+      <li><span class="t">17:00</span>코타니주점</li>
+      <li><span class="t">18:00</span>카와코</li>
+    </ol>
+    <div class="routebtns">
+      <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/33.5912549,130.4046067/33.5886887,130.3999665/33.5213697,130.5348239/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg>오전 · 다자이후 (전철)</a>
+      <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/33.591512,130.4005285/33.5825662,130.3787844/33.5852452,130.3832159/33.5870903,130.3941227/33.5868782,130.3926174/33.5912549,130.4046067/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg>오후 · 텐진~다이묘</a>
+    </div>
+    <p class="note">오전 동선은 지도에서 '대중교통'으로 보세요.</p>
+  </div>
+
+  <ol class="tl">
+    <li class="stop move"><div class="time">09:00</div><div class="card">
+      <div class="cat">이동</div>
+      <h3>니시테츠 후쿠오카(텐진)역 출발</h3>
+      <p>텐진오무타선 → 후츠카이치역 환승 → 다자이후역.</p>
+      <div class="tags"><span class="tag walk">숙소 약 10분</span><span class="tag train">약 45분 · 편도 480엔</span></div>
+      <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Nishitetsu%20Fukuoka%20Tenjin%20Station&query_place_id=ChIJE6vr6o-RQTURSk3GcHV8j8M"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>구글맵에서 보기</a>
+    </div></li>
+
+    <li class="stop"><div class="time">10:00</div><div class="card">
+      <div class="cat">관광 · 근교</div>
+      <h3>다자이후 텐만구</h3>
+      <p>학문의 신을 모신 신사. 참배길 산책하며 우메가에모치 맛보기.</p>
+      <div class="tags"><span class="tag clock">6:00–19:30</span><span class="tag wait">토요일 매우 혼잡 · 일찍</span></div>
+      <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Dazaifu%20Tenmangu&query_place_id=ChIJzfvrKp-bQTURl65fp6vRJLg"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>구글맵에서 보기</a>
+    </div></li>
+
+    <li class="stop"><div class="time">13:00</div><div class="card">
+      <div class="cat">점심 · 오차즈케</div>
+      <h3>인바초 잇케이 (因幡町 一慶) <small>★4.6 · 리뷰 331</small></h3>
+      <p>도미·명란 타이차즈케 세트. 회로 먹다가 육수를 부어 차즈케로.</p>
+      <div class="tags"><span class="tag walk">숙소 4분 · 텐진 비즈니스센터 B2</span><span class="tag clock">토 11:00–23:00 연속</span><span class="tag q">가격 미확인 · 영어메뉴 없음</span></div>
+      <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Inabacho%20Ikkei%20Tenjin&query_place_id=ChIJLbYoGeCRQTURqlDg9bICGmE"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>구글맵에서 보기</a>
+    </div></li>
+
+    <li class="stop"><div class="time">14:30</div><div class="card">
+      <div class="cat">관광 · 공원</div>
+      <h3>오호리 공원 · 일본정원</h3>
+      <p>호수 공원 산책 + 유료 일본정원. 늦가을 단풍 시기.</p>
+      <div class="tags"><span class="tag train">텐진→오호리코엔역 지하철 약 5분</span><span class="tag">정원 250엔(리뷰 기준)</span><span class="tag q">정원 마감 17/18시 미확인 · 월 휴무</span></div>
+      <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Ohori%20Park%20Japanese%20Garden&query_place_id=ChIJAQBwwc2TQTURjx-IPrl8IzM"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>구글맵에서 보기</a>
+    </div></li>
+
+    <li class="stop"><div class="time">15:45</div><div class="card">
+      <div class="cat">관광 · 역사</div>
+      <h3>후쿠오카성터 (마이즈루 공원)</h3>
+      <p>성벽과 천수대 터. 계단 위에서 시내 전망.</p>
+      <div class="tags"><span class="tag walk">정원에서 약 7분</span><span class="tag clock">9:00–17:00</span></div>
+      <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Fukuoka%20Castle%20Ruins&query_place_id=ChIJQ_6JJtOTQTURigJ8dBobe18"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>구글맵에서 보기</a>
+    </div></li>
+
+    <li class="stop"><div class="time">17:00</div><div class="card">
+      <div class="cat">1차 · 선술집</div>
+      <h3>코타니 주점 (小谷酒舗) <small>★4.4 · 리뷰 336</small></h3>
+      <p>3대째 술집 안에서 서서 마시는 가쿠우치. 사케·맥주 한잔 가볍게.</p>
+      <div class="tags"><span class="tag walk">성터에서 약 15분 · 숙소 13분</span><span class="tag clock">토 11:00–21:00</span></div>
+      <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Kotani%20Saketen%20Daimyo&query_place_id=ChIJoXOk8oaRQTUR2aDz46XDExw"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>구글맵에서 보기</a>
+    </div></li>
+
+    <li class="stop"><div class="time">18:00</div><div class="card">
+      <div class="cat">저녁 · 구이</div>
+      <h3>카와코 다이묘 본점 <small>★4.6 · 리뷰 847</small></h3>
+      <p>바삭한 토리카와(닭껍질) 꼬치가 명물. 삼겹 꼬치·츠쿠네도 인기.</p>
+      <div class="tags"><span class="tag walk">코타니에서 2분</span><span class="tag clock">토 17:00–24:00</span><span class="tag wait">주말 저녁 웨이팅 가능</span></div>
+      <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Kawakko%20Daimyo&query_place_id=ChIJ6568sQ-RQTURfwgh7PPrDNE"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>구글맵에서 보기</a>
+    </div></li>
+  </ol>
+</section>
+
+<!-- ===================== DAY 3 ===================== -->
+<section class="panel" id="d3" role="tabpanel" aria-labelledby="t3">
+  <div class="dayhead">
+    <div><h2>3일차 · 장어 → 공항</h2><div class="theme">장어 오픈런 → 기념품 → 15시 공항 출발</div></div>
+  </div>
+
+  <div class="alert">
+    <b>⏰ 공항 역산</b> 17:20 출발편
+    <ul>
+      <li><b>14:30</b> 호텔에서 짐 찾기</li>
+      <li><b>15:00</b> 나카스카와바타역 출발 (공항선 약 10분, 공항까지 직통)</li>
+      <li>국제선 이동·체크인 여유 포함 · 늦어도 15:00 출발 엄수</li>
+    </ul>
+  </div>
+
+  <div class="summary">
+    <ol>
+      <li><span class="t">09:30</span>체크아웃</li>
+      <li><span class="t">10:00</span>우나기야</li>
+      <li><span class="t">11:45</span>돈키호테</li>
+      <li><span class="t">13:00</span>지하상가</li>
+      <li><span class="t">14:30</span>짐</li>
+      <li><span class="t">15:00</span>공항</li>
+    </ol>
+    <div class="routebtns">
+      <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/33.5912549,130.4046067/33.5926068,130.4089564/33.5939851,130.4058456/33.5913757,130.3988893/33.5912549,130.4046067/33.5944115,130.4060654/Fukuoka+Airport+International+Terminal/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg>3일차 동선 한번에 보기</a>
+    </div>
+  </div>
+
+  <ol class="tl">
+    <li class="stop move"><div class="time">09:30</div><div class="card">
+      <div class="cat">숙소</div>
+      <h3>체크아웃 · 짐 보관</h3>
+      <p>체크아웃 후 짐을 호텔에 맡기고 가볍게 이동.</p>
+      <div class="tags"><span class="tag q">호텔 짐 보관 가능 여부 미확인 · 사전 확인</span></div>
+      <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=MK%20Hotels%20Nishinakasu&query_place_id=ChIJCzoI9WyRQTURh61LiaaVZNo"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>구글맵에서 보기</a>
+    </div></li>
+
+    <li class="stop"><div class="time">10:00</div><div class="card">
+      <div class="cat">아점 · 장어</div>
+      <h3>하카타 메이다이 요시즈카 우나기야 <small>★4.4 · 리뷰 9.4천</small></h3>
+      <p>후쿠오카 장어 노포. 강변 뷰. 오픈 시간 맞춰 가기.</p>
+      <div class="tags"><span class="tag walk">숙소 약 7분</span><span class="tag clock">10:00–21:00 · 화–목 휴무</span><span class="tag wait">30분+ 웨이팅 흔함</span></div>
+      <div class="tags"><span class="tag">2층에서 셀프 대기등록</span><span class="tag">일행 전원 도착해야 입장</span><span class="tag q">가격대 높음 · 금액 미확인</span></div>
+      <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Yoshizuka%20Unagiya&query_place_id=ChIJEdRrGJWRQTUR1EMJZc6h5v0"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>구글맵에서 보기</a>
+    </div></li>
+
+    <li class="stop"><div class="time">11:45</div><div class="card">
+      <div class="cat">기념품</div>
+      <h3>돈키호테 나카스점</h3>
+      <p>2층 매장. 층 이동 시 장바구니를 직원에게 맡기는 방식(리뷰 기준).</p>
+      <div class="tags"><span class="tag walk">우나기야에서 약 5분</span><span class="tag clock">24시간</span><span class="tag">계산 시 가격표 확인</span></div>
+      <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Don%20Quijote%20Nakasu&query_place_id=ChIJU6_Qh5SRQTURhTacOuDrmZo"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>구글맵에서 보기</a>
+    </div></li>
+
+    <li class="stop"><div class="time">13:00</div><div class="card">
+      <div class="cat">자유시간</div>
+      <h3>텐진 지하상가 산책</h3>
+      <p>유럽풍 지하 상가. 카페에서 쉬거나 남은 기념품 구경.</p>
+      <div class="tags"><span class="tag walk">숙소 약 7분</span><span class="tag clock">10:00–20:00</span></div>
+      <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Tenjin%20Underground%20Mall&query_place_id=ChIJ970Xo46RQTURm6GUmUJcn6Y"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>구글맵에서 보기</a>
+    </div></li>
+
+    <li class="stop move"><div class="time">14:30</div><div class="card">
+      <div class="cat">숙소</div>
+      <h3>호텔에서 짐 찾기</h3>
+      <div class="tags"><span class="tag wait">늦어도 15:00 출발</span></div>
+    </div></li>
+
+    <li class="stop move"><div class="time">15:00</div><div class="card">
+      <div class="cat">이동</div>
+      <h3>나카스카와바타역 → 후쿠오카공항</h3>
+      <p>지하철 공항선 약 10분. 국제선은 공항역에서 이동이 필요하니 여유 있게.</p>
+      <div class="tags"><span class="tag walk">숙소 약 5분</span><span class="tag train">공항선 직통</span></div>
+      <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Nakasukawabata%20Station&query_place_id=ChIJiShWTeuRQTURuHO1zkcLEtI"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>구글맵에서 보기</a>
+    </div></li>
+  </ol>
+</section>
+
+<!-- ===================== COMMON ===================== -->
+<div class="section">
+  <h4>☔ 비 올 때 대안</h4>
+  <div class="box"><ul>
+    <li>2일차 오후 오호리공원 → <b>캐널시티</b> 또는 <b>텐진 지하상가</b>로 교체</li>
+    <li>다자이후는 우천에도 가능하지만 참배길 혼잡·미끄럼 주의</li>
+    <li>나카스 야타이는 비 오면 쉬는 곳이 있음 → 숙소 근처 후지요시·이자카야로</li>
+  </ul></div>
+</div>
+
+<div class="section">
+  <h4>🍜 예비 맛집</h4>
+  <div class="box"><ul>
+    <li><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Ramen%20Kanetora%20Tenjin&query_place_id=ChIJD7BFpICRQTUR5BeGhZW5axY">멘야 카네토라 텐진본점</a> · 진한 츠케멘 · 도보 10분 · 웨이팅 45분 안팎</li>
+    <li><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Tempura%20Hirao%20Daimyo&query_place_id=ChIJN1g0QIaRQTURHidyU9J4P_8">텐푸라 히라오 다이묘</a> · 저렴한 튀김정식 · 도보 12분 · 10:30–20:00</li>
+    <li><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Hakata%20Taichaya%20Nakasu&query_place_id=ChIJeRon4JSRQTURh1iKisWDfCk">하카타 타이차야 나카스점</a> · 심야 해장 차즈케 · 23:00–08:00 · 일 휴무</li>
+  </ul></div>
+</div>
+
+<div class="section">
+  <h4>✅ 출발 전 체크</h4>
+  <div class="box"><ul>
+    <li>MK호텔 체크아웃 후 짐 보관 가능 여부</li>
+    <li>후지요시 예약 (금 20:30 · 3명)</li>
+    <li>라쿠텐치·잇케이·우나기야 가격대·카드 결제 여부 (미확인)</li>
+    <li>오호리 일본정원 마감 시간 (17시/18시 미확인)</li>
+  </ul></div>
+</div>
+
+<p class="foot">영업시간·평점은 2026년 10월 27일 구글 지도 기준 · 방문 전 다시 확인하세요<br>금요일·주말 일정이라 대부분의 맛집에서 웨이팅이 생길 수 있어요</p>
+</main>
+
+<script>
+(function(){
+  try{
+    var m=(location.hash||'').match(/day([123])/); if(m) document.getElementById('r'+m[1]).checked=true;
+    document.querySelectorAll('.daypick').forEach(function(r){
+      r.addEventListener('change',function(){
+        var h=document.querySelector('.hero').offsetHeight; if(window.scrollY>h) window.scrollTo(0,h);
+      });
+    });
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
