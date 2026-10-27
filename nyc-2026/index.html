@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#14213d">
+<meta name="description" content="2026.10.2~10.10 부부 뉴욕 여행 기록 · 일자별 동선과 구글맵 링크">
+<meta property="og:type" content="website">
+<meta property="og:title" content="뉴욕뉴욕 돈봉 2026">
+<meta property="og:description" content="10/2~10/10 · 하이라인부터 버드랜드·위키드까지, 일자별 동선 기록">
+<meta property="og:url" content="https://tla5368-lgtm.github.io/trip-guides/nyc-2026/">
+<title>뉴욕뉴욕 돈봉 2026</title>
+<style>
+:root{
+  --bg:#f5f2ec; --card:#fff; --ink:#1b2130; --sub:#5e6577; --line:#e4ded3;
+  --navy:#14213d; --taxi:#f2b705; --brick:#c2452d; --chip:#eef0f5; --soft:#fdf4dc;
+  --shadow:0 1px 2px rgba(20,25,40,.06),0 6px 18px rgba(20,25,40,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#11141b;--card:#1a1e28;--ink:#eceef2;--sub:#a2a8b6;--line:#2a303d;--navy:#0b1222;--chip:#242a37;--soft:#2b2516;--shadow:none}
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Malgun Gothic","Noto Sans KR",sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:640px;margin:0 auto;padding:0 16px}
+
+/* Hero */
+.hero{background:var(--navy);color:#fff;padding:26px 0 30px;position:relative;overflow:hidden}
+.sky{position:absolute;left:0;right:0;bottom:0;height:60px;opacity:.1}
+.hero .wrap{position:relative;z-index:1}
+.back{font-size:12px;opacity:.7;text-decoration:none}
+.kicker{font-size:12px;letter-spacing:.18em;color:var(--taxi);text-transform:uppercase;margin-top:10px;font-weight:700}
+.hero h1{margin:6px 0 4px;font-size:27px;letter-spacing:-.02em}
+.hero p{margin:0;opacity:.85;font-size:14px}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+.fact{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:10px 12px;font-size:12.5px}
+.fact b{display:block;font-size:11px;font-weight:600;opacity:.65;margin-bottom:2px;letter-spacing:.04em}
+
+/* Tabs */
+.tabs{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line)}
+.tabs .row{display:flex;gap:6px;padding:10px 16px;max-width:640px;margin:0 auto;overflow-x:auto;scrollbar-width:none}
+.tabs .row::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;min-width:64px;appearance:none;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:7px 10px;font:inherit;cursor:pointer;text-align:center;-webkit-tap-highlight-color:transparent}
+.tab .d{display:block;font-weight:800;font-size:14px;font-variant-numeric:tabular-nums}
+.tab .w{display:block;font-size:11px;color:var(--sub)}
+.tab[aria-selected="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.tab[aria-selected="true"] .w{color:var(--taxi)}
+@media (prefers-color-scheme: dark){.tab[aria-selected="true"]{background:#2b3b63;border-color:#2b3b63}}
+
+/* Overview */
+.ov{display:grid;gap:8px;margin:16px 0}
+.ovr{display:grid;grid-template-columns:58px 1fr;gap:10px;align-items:start;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;cursor:pointer;text-align:left;font:inherit;color:inherit;width:100%}
+.ovr .dt{font-weight:800;font-size:13px;font-variant-numeric:tabular-nums}
+.ovr .dt small{display:block;font-weight:500;color:var(--sub);font-size:11px}
+.ovr .tt{font-size:14px;font-weight:700}
+.ovr .fx{font-size:12px;color:var(--brick);margin-top:2px}
+
+/* Day panel */
+.panel{padding:18px 0 8px}
+.panel[hidden]{display:none}
+.dayhead h2{margin:0;font-size:21px;letter-spacing:-.02em}
+.dayhead .theme{color:var(--sub);font-size:13px;margin-top:2px}
+.intro{font-size:13.5px;margin:10px 0 0;color:var(--ink)}
+.fixed{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 0}
+.fixed span{font-size:12px;font-weight:700;background:var(--soft);color:#8a5a00;border-radius:999px;padding:4px 10px}
+@media (prefers-color-scheme: dark){.fixed span{color:var(--taxi)}}
+
+/* Timeline */
+.tl{position:relative;margin:16px 0 0;padding:0;list-style:none}
+.tl::before{content:"";position:absolute;left:52px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.stop{display:grid;grid-template-columns:46px 1fr;gap:14px;margin-bottom:10px;position:relative}
+.time{font-variant-numeric:tabular-nums;font-weight:800;font-size:13px;padding-top:12px;text-align:right;line-height:1.25}
+.stop::after{content:"";position:absolute;left:47px;top:16px;width:12px;height:12px;border-radius:50%;background:var(--card);border:3px solid var(--brick)}
+.stop.fix::after{background:var(--taxi);border-color:var(--taxi)}
+.stop.move::after{border-color:var(--sub)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:11px 14px;box-shadow:var(--shadow);margin-left:8px}
+.stop.move .card{background:transparent;box-shadow:none;border-style:dashed}
+.cat{font-size:11px;font-weight:700;letter-spacing:.05em;color:var(--brick)}
+.stop.fix .cat{color:#a87800}
+@media (prefers-color-scheme: dark){.stop.fix .cat{color:var(--taxi)}}
+.card h3{margin:2px 0 3px;font-size:15.5px;letter-spacing:-.01em}
+.card p{margin:0;font-size:13px;color:var(--sub)}
+.pin{display:inline-flex;align-items:center;gap:4px;margin-top:7px;font-size:12.5px;font-weight:700;color:var(--brick);text-decoration:none}
+.pin svg{width:13px;height:13px}
+.badge{display:inline-block;font-size:10.5px;font-weight:800;background:var(--taxi);color:#1b2130;border-radius:6px;padding:1px 6px;margin-left:6px;vertical-align:2px}
+
+/* Boxes */
+.section{margin:22px 0}
+.section h4{margin:0 0 8px;font-size:15px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:13.5px}
+.box ul{margin:0;padding-left:18px}
+.box li{margin:4px 0}
+.box li b{font-weight:700}
+.picks{display:grid;gap:8px}
+.pick{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:13px;text-decoration:none;display:block}
+.pick b{display:block;font-size:14px}
+.pick span{color:var(--sub)}
+table.lineup{width:100%;border-collapse:collapse;font-size:13px}
+.lineup td{padding:6px 4px;border-top:1px solid var(--line);vertical-align:top}
+.lineup tr:first-child td{border-top:0}
+.lineup td:first-child{font-weight:800;font-variant-numeric:tabular-nums;width:52px}
+.lineup tr.me td{color:var(--brick);font-weight:700}
+.foot{color:var(--sub);font-size:11.5px;text-align:center;padding:22px 0 40px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <svg class="sky" viewBox="0 0 640 70" preserveAspectRatio="none" aria-hidden="true"><path fill="#fff" d="M0 70V48h18V34h10v14h14V22h8V8h4v14h8v26h20V30h16v18h12V40h10V18h6V4h3v14h6v30h18V36h22v12h10V26h14v22h16V14h12v34h20V40h18V20h8V10h3v10h8v28h22V32h14v16h18V24h20v24h12V38h16V16h6V2h2v14h6v32h20V30h18v18h14V22h12v26h22V36h20v12h16V28h14v20h18V40h20V18h10v30h14V34h18v14h22v22z"/></svg>
+  <div class="wrap">
+    <a class="back" href="../">← 여행 가이드 모음</a>
+    <div class="kicker">New York · 2026.10.2 – 10.10</div>
+    <h1>뉴욕뉴욕 돈봉 2026</h1>
+    <p>둘이서 7박 9일 · 포트리에서 맨해튼으로 출퇴근하듯</p>
+    <div class="facts">
+      <div class="fact"><b>가는 편</b>YP131 인천 T1 10/2 21:25 → 뉴어크 B 22:30</div>
+      <div class="fact"><b>오는 편</b>YP132 뉴어크 B 10/10 01:00 → 인천 10/11 05:15</div>
+      <div class="fact"><b>베이스캠프</b>뉴저지 포트리 누나 댁<br>맨해튼 편도 40~60분</div>
+      <div class="fact"><b>하이라이트</b>나이아가라 · 탑 오브 더 락<br>론 카터 · 위키드</div>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="일자 선택"><div class="row" id="tabs" role="tablist"></div></nav>
+
+<main class="wrap" id="main"></main>
+
+<div class="wrap">
+  <section class="section">
+    <h4>뉴욕에서 써먹은 이동 요령</h4>
+    <div class="box"><ul>
+      <li><b>지하철·MTA 버스</b> 개찰구에 비접촉 카드나 애플페이 태그(OMNY). 둘이 각자 다른 카드·폰으로.</li>
+      <li><b>159번 버스</b> 포트리 ↔ 포트 오소리티. NJ Transit이라 OMNY 안 되고 NJ Transit 앱 티켓.</li>
+      <li><b>A선 루트</b> 조지워싱턴브리지 버스터미널 → 175 St역에서 A선. 다운타운·브루클린 갈 때 편함.</li>
+      <li><b>밤 귀가</b> 맨해튼 → 포트리 우버 약 15분, $45~55 (팁 별도).</li>
+    </ul></div>
+  </section>
+  <p class="foot">출발 전 확정한 일자별 일정표를 바탕으로 정리 · 시간은 뉴욕 현지 기준</p>
+</div>
+
+<script>
+const PIN='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>';
+const gm=q=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q);
+
+/* kind: f = 고정 예약, m = 이동, 기본 = 일반 */
+const DAYS=[
+{id:'d1',d:'10/2',w:'금',title:'도착',theme:'인천 → 뉴어크 → 포트리',
+ intro:'입국심사와 짐 찾기에 한 시간 넘게 걸려서, 바로 누나 댁으로 가서 쉬는 날.',
+ fixed:['22:30 뉴어크 도착 (YP131)'],
+ stops:[
+  ['21:25','m','출발','인천 T1 출발','YP131 · 14시간 5분 비행',''],
+  ['22:30','f','도착','뉴어크 리버티 공항 터미널 B','','Newark Liberty International Airport Terminal B'],
+  ['24:00','m','이동','포트리 누나 댁','우버로 약 40분','']
+ ]},
+{id:'d2',d:'10/3',w:'토',title:'허드슨야드 · 하이라인 · 첼시마켓',theme:'북에서 남으로 걷는 가벼운 적응일',
+ intro:'박물관 없이 걷고 먹는 날. 24년에 맛있었던 랍스터를 다시 먹으러 첼시마켓으로.',
+ stops:[
+  ['10:30','m','이동','포트 오소리티로','159번 버스, 약 40~60분','Port Authority Bus Terminal'],
+  ['11:15','','구경','베슬 · 허드슨야드','벌집 모양 계단 조형물과 쇼핑몰','The Vessel Hudson Yards'],
+  ['12:00','','산책','하이라인','34th St 입구에서 남쪽으로 약 40분','The High Line'],
+  ['13:00','','점심','랍스터 플레이스 <span class="badge">재방문</span>','첼시마켓 안. 하이라인 쪽 옆문으로 들어가면 인파를 덜 거침','Lobster Place Chelsea Market'],
+  ['14:30','','공원','리틀 아일랜드','허드슨강 위 인공섬 공원','Little Island'],
+  ['15:30','','산책','그리니치빌리지 · 워싱턴 스퀘어','카페에서 쉬어 가기','Washington Square Park'],
+  ['16:30','','저녁','워싱턴 스퀘어 일대에서 가볍게','',''],
+  ['17:30','m','귀가','W 4 St → 42 St-Port Authority','A·C·E 지하철 → 159번 버스','']
+ ],
+ picks:[
+  ['Los Tacos No.1','첼시마켓 안 타코, 랍스터와 나눠 먹기','Los Tacos No.1 Chelsea Market'],
+  ['L\'Industrie Pizzeria','웨스트빌리지 부라타 슬라이스 · 4.7','L\'Industrie Pizzeria West Village'],
+  ['Caffe Reggio','1927년부터 있는 그리니치빌리지 카페','Caffe Reggio'],
+  ['McSorley\'s Old Ale House','1854년 에일하우스, 라이트·다크 두 가지','McSorley\'s Old Ale House']
+ ]},
+{id:'d3',d:'10/4–5',w:'일·월',title:'나이아가라 1박 2일',theme:'자차 로드트립',
+ intro:'누나 차로 다녀온 1박 2일. 편도 7시간 안팎의 장거리 운전이라 10/5 밤 늦게 포트리로 복귀.',
+ fixed:['10/4~10/5 나이아가라 (자차)'],
+ stops:[
+  ['10/4','f','로드트립','나이아가라 폭포로','뉴저지에서 편도 7시간 안팎','Niagara Falls'],
+  ['10/5','m','복귀','포트리로','밤 늦게 도착. 다음 날부터 사흘 연속 저녁 일정','']
+ ]},
+{id:'d4',d:'10/6',w:'화',title:'크루즈 · MoMA · 탑 오브 더 락 · 갤러거스',theme:'예약 세 개가 몰린 날, 전부 미드타운 서쪽',
+ intro:'크루즈와 전망대 사이 빈 시간에 MoMA를 넣은 날. 일몰 무렵 전망대에 올라가 야경까지 보고 스테이크로 마무리.',
+ fixed:['12:30 서클라인 크루즈','17:40 탑 오브 더 락','19:00 갤러거스'],
+ stops:[
+  ['10:00','m','이동','포트 오소리티로','159번 버스','Port Authority Bus Terminal'],
+  ['11:00','','점심','Los Tacos No.1 타임스스퀘어','저녁이 스테이크라 가볍게 타코','Los Tacos No.1 Times Square'],
+  ['11:45','','체크인','피어 83 매표소','바우처 교환, 대표자 여권 제시','Circle Line Sightseeing Cruises Pier 83'],
+  ['12:30','f','크루즈','서클라인 랜드마크 크루즈','90분. 자유의 여신상, 원월드, 브루클린 브리지까지','Circle Line Sightseeing Cruises'],
+  ['14:45','','미술관','MoMA','현대카드로 2인 무료입장. 대표작 위주로 2시간','The Museum of Modern Art'],
+  ['16:50','','쇼핑','다이슨 데모 스토어','5번가에서 짧게 체험','Dyson Demo Store 640 5th Ave'],
+  ['17:10','','구경','록펠러센터 플라자','채널 가든스 → 프로메테우스 상 → 만국기','Rockefeller Plaza'],
+  ['17:40','f','전망대','탑 오브 더 락','50th St 레드카펫 입장, 18:35 전후 일몰','Top of the Rock'],
+  ['19:00','f','저녁','갤러거스 스테이크하우스','타임스스퀘어 근처 스테이크하우스, 예약 저녁','Gallaghers Steakhouse'],
+  ['21:00','','야경','타임스스퀘어','TKTS 빨간 계단에서 사진 후 귀가','Times Square']
+ ],
+ picks:[
+  ['MoMA Design Store','MoMA 건너편 53rd St, 관람 후 소품 구경','MoMA Design Store 53rd Street'],
+  ['Anita Gelato','타임스스퀘어, 자정까지 · 4.6','Anita Gelato Times Square']
+ ]},
+{id:'d5',d:'10/7',w:'수',title:'로어맨해튼 · 브루클린 · 버드랜드',theme:'남쪽 끝을 걷고, 덤보에서 쉬고, 재즈로',
+ intro:'9/11 메모리얼에서 시작해 브루클린 브리지를 걸어서 건너고, 덤보에서 여유 있게 쉰 뒤 A선 한 번으로 버드랜드까지.',
+ fixed:['17:30 버드랜드 도어 오픈','19:00 론 카터 쿼텟'],
+ stops:[
+  ['09:30','m','이동','175 St역에서 A선','다운타운 Fulton St 하차','George Washington Bridge Bus Station'],
+  ['10:30','','박물관','9/11 메모리얼 & 뮤지엄','','9/11 Memorial & Museum'],
+  ['12:00','','구경','오큘러스','메모리얼 풀 바로 옆 날개 모양 건물','Oculus'],
+  ['12:30','','브런치','아폴로 베이글 <span class="badge">꼭 가기</span>','15:00 마감이라 늦은 아침으로','Apollo Bagels 41 John St'],
+  ['13:00','','구경','월스트리트 황소 · 트리니티 교회','지나가며 짧게','Charging Bull'],
+  ['13:30','','산책','브루클린 브리지 도보 횡단','맨해튼 쪽 보행로에서 약 40분','Brooklyn Bridge'],
+  ['14:15','','점심','줄리아나 화덕 피자','다리 브루클린 쪽에서 도보 10분 · 4.6','Juliana\'s Pizza 19 Old Fulton St'],
+  ['15:00','','쉬기','덤보','포토스팟, Time Out Market 루프탑에서 한잔, Jacques Torres 초콜릿','Washington Street DUMBO'],
+  ['17:15','m','이동','High St → 42 St-Port Authority','A선 환승 없이 약 25분',''],
+  ['18:00','','저녁','버드랜드에서 식사','테이블석 선착순이라 일찍. 1인 $20 이상 주문','Birdland Jazz Club'],
+  ['19:00','f','공연','Ron Carter Foursight Quartet','론 카터(베이스) · 도널드 베가 · 지미 그린 · 페이튼 크로슬리','Birdland Jazz Club'],
+  ['20:30','m','귀가','타임스스퀘어 잠깐 → 159번 버스','','']
+ ],
+ lineup:[
+  ['17:30','David Ostwald\'s Louis Armstrong Eternity Band','지하 Theater',0],
+  ['19:00','Ron Carter Foursight Quartet (우리 공연)','1층 Jazz Club',1],
+  ['20:30','Frank Vignola\'s Guitar Night','지하 Theater',0],
+  ['21:30','Ron Carter Foursight Quartet 2부','1층 Jazz Club',0]
+ ],
+ picks:[
+  ['Eataly NYC Downtown','오큘러스 쪽, 와인 한 잔과 식료품 구경','Eataly NYC Downtown'],
+  ['Time Out Market New York','덤보 5층 루프탑에서 브루클린 브리지 보며','Time Out Market New York'],
+  ['Jacques Torres Chocolate','덤보 초콜릿 가게','Jacques Torres Chocolate DUMBO']
+ ]},
+{id:'d6',d:'10/8',w:'목',title:'자연사박물관 · 소호 · 차이나타운 · 위키드',theme:'사흘 연속 저녁 일정의 마지막 날',
+ intro:'박물관 앞에서 아침, 뒤에서 버거. 오후엔 소호·놀리타·차이나타운을 걸으며 소품 구경, 군만두로 이른 저녁을 먹고 위키드.',
+ fixed:['10:00 자연사박물관','19:00 위키드'],
+ stops:[
+  ['08:30','m','이동','A선 → 145 St에서 B·C 환승','81 St 하차',''],
+  ['09:20','','아침','Daily Provisions','크룰러 + 커피','Daily Provisions Upper West Side'],
+  ['10:00','f','박물관','미국 자연사박물관','공룡관, 대왕고래, 로즈센터','American Museum of Natural History'],
+  ['13:00','','점심','7th Street Burger','박물관 뒤 스매시버거 · 4.5','7th Street Burger Upper West Side'],
+  ['13:45','m','이동','81 St → Spring St','C선 약 25분',''],
+  ['14:15','','소품 구경','소호 → 놀리타 → Paloma Wool <span class="badge">꼭 가기</span>','프린스 스트리트에서 동쪽으로, The Meadow 초콜릿 가게 경유','Paloma Wool 425 Broome St'],
+  ['16:00','','쇼핑','Yan\'s Antique Jewelry <span class="badge">꼭 가기</span>','차이나타운 펠 스트리트의 앤티크 주얼리','Yan\'s Antique Jewelry 35 Pell St'],
+  ['16:35','','이른 저녁','Jin Mei Dumpling','군만두 15개 $5, 현금만, 근처 벤치에서','Jin Mei Dumpling 25 Henry St'],
+  ['17:35','m','이동','Grand St → 47-50 Sts','B·D선 약 15분',''],
+  ['19:00','f','뮤지컬','위키드','거슈윈 극장, 리어 오케스트라 · 21:45 종료','Gershwin Theatre'],
+  ['22:00','m','귀가','타임스스퀘어 구경 → 우버','돌아와서 짐 정리','']
+ ],
+ picks:[
+  ['Levain Bakery','박물관 근처 두툼한 쿠키','Levain Bakery 74th Street'],
+  ['Zabar\'s','오래된 식료품점, 커피·주방 소품','Zabar\'s'],
+  ['The Meadow','놀리타 초콜릿 가게, Paloma Wool 가는 길목','The Meadow 240 Mulberry St']
+ ]},
+{id:'d7',d:'10/9',w:'금',title:'메트 · 센트럴파크 · 5번가 · 출국',theme:'짐은 두고 걷고, 일찍 들어와 쉬다가 공항',
+ intro:'아울렛은 빼고 메트 → 센트럴파크 → 5번가 순으로. 일찍 귀가해 씻고 쉬다가 밤에 공항으로.',
+ fixed:['22:00 체크인','10/10 01:00 YP132'],
+ stops:[
+  ['09:15','m','이동','메트로','',''],
+  ['10:00','','미술관','메트로폴리탄 미술관','대표작 위주로 2시간 반','The Metropolitan Museum of Art'],
+  ['12:30','','점심','칙필레','앉아서 먹는 큰 매장, 메트에서 동쪽으로 12분','Chick-fil-A 1536 Third Ave'],
+  ['13:30','','산책','센트럴파크','보우 브리지 → 스트로베리 필즈 → 베데스다 분수 → 더 몰','Bow Bridge Central Park'],
+  ['15:30','','포장','Tony Dragon\'s Grille','푸드트럭, 누나 댁 저녁용 · 4.8','Tony Dragon\'s Grille'],
+  ['15:50','','구경','5번가','플라자 호텔 → 세인트 패트릭 대성당','St. Patrick\'s Cathedral'],
+  ['16:20','m','귀가','포트 오소리티 → 159번 버스','',''],
+  ['19:30','','선물','트레이더 조 에지워터','팀 선물 과자 · 다크초콜릿 프레첼, 버터 아몬드 씬 쿠키','Trader Joe\'s Edgewater'],
+  ['20:30','m','공항','큰 차량 우버로 뉴어크','약 40분',''],
+  ['01:00','f','출국','YP132 뉴어크 → 인천','10/11(일) 05:15 도착 · 15시간 15분','']
+ ],
+ picks:[
+  ['The Met Store','관람 후 기념품·소품','The Met Store'],
+  ['Grill Point','메트 동쪽 세 블록 이스라엘식 샤와르마','Grill Point 1215 Lexington Ave']
+ ]}
+];
+
+const esc=s=>s; /* 데이터는 직접 작성한 것만 사용 */
+const tabs=document.getElementById('tabs'), main=document.getElementById('main');
+
+/* overview */
+let ov='<div class="ov">';
+DAYS.forEach(x=>{ov+=`<button class="ovr" data-go="${x.id}"><div class="dt">${x.d}<small>${x.w}</small></div><div><div class="tt">${x.title}</div>${x.fixed?`<div class="fx">${x.fixed.join(' · ')}</div>`:''}</div></button>`});
+ov+='</div>';
+main.insertAdjacentHTML('beforeend',`<section class="panel" id="all"><div class="dayhead"><h2>한눈에 보기</h2><div class="theme">날짜를 누르면 그날 동선으로</div></div>${ov}</section>`);
+
+tabs.insertAdjacentHTML('beforeend',`<button class="tab" role="tab" data-go="all"><span class="d">전체</span><span class="w">한눈에</span></button>`);
+DAYS.forEach(x=>{
+  tabs.insertAdjacentHTML('beforeend',`<button class="tab" role="tab" data-go="${x.id}"><span class="d">${x.d}</span><span class="w">${x.w}</span></button>`);
+  let h=`<section class="panel" id="${x.id}" hidden><div class="dayhead"><h2>${x.d} · ${x.title}</h2><div class="theme">${x.theme}</div></div><p class="intro">${x.intro}</p>`;
+  if(x.fixed) h+=`<div class="fixed">${x.fixed.map(f=>`<span>📌 ${f}</span>`).join('')}</div>`;
+  h+='<ol class="tl">';
+  x.stops.forEach(([t,k,c,n,p,q])=>{
+    h+=`<li class="stop ${k==='f'?'fix':k==='m'?'move':''}"><div class="time">${t}</div><div class="card"><div class="cat">${c}</div><h3>${n}</h3>${p?`<p>${p}</p>`:''}${q?`<a class="pin" target="_blank" rel="noopener" href="${gm(q)}">${PIN}구글맵</a>`:''}</div></li>`;
+  });
+  h+='</ol>';
+  if(x.lineup){
+    h+=`<div class="section"><h4>그날 버드랜드 라인업</h4><div class="box"><table class="lineup">${x.lineup.map(([t,n,v,m])=>`<tr class="${m?'me':''}"><td>${t}</td><td>${n}<br><span style="color:var(--sub);font-weight:400;font-size:12px">${v}</span></td></tr>`).join('')}</table></div></div>`;
+  }
+  if(x.picks){
+    h+=`<div class="section"><h4>동선 위에 있던 곳</h4><div class="picks">${x.picks.map(([n,p,q])=>`<a class="pick" target="_blank" rel="noopener" href="${gm(q)}"><b>${n}</b><span>${p}</span></a>`).join('')}</div></div>`;
+  }
+  h+='</section>';
+  main.insertAdjacentHTML('beforeend',h);
+});
+
+function show(id){
+  document.querySelectorAll('.panel').forEach(p=>p.hidden=p.id!==id);
+  document.querySelectorAll('.tab').forEach(b=>{
+    const on=b.dataset.go===id; b.setAttribute('aria-selected',on);
+    if(on){const r=b.parentElement;r.scrollLeft=b.offsetLeft-(r.clientWidth-b.offsetWidth)/2;}
+  });
+  if(location.hash!=='#'+id) history.replaceState(null,'','#'+id);
+}
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-go]'); if(!b) return;
+  show(b.dataset.go);
+  if(b.classList.contains('ovr')) document.querySelector('.tabs').scrollIntoView({behavior:'smooth'});
+});
+window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(h==='all'||DAYS.some(x=>x.id===h))show(h)});
+const start=location.hash.slice(1);
+show(DAYS.some(x=>x.id===start)?start:'all');
+</script>
+</body>
+</html>
