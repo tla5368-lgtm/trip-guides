@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="기출문제">
+<meta name="robots" content="noindex">
+<style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*,*::before,*::after{box-sizing:inherit}body{margin:0}img{max-width:100%}[hidden]{display:none!important}button{-webkit-tap-highlight-color:transparent;touch-action:manipulation}</style>
+<title>너와 나의 기출문제</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: the 뉴욕 노선도 again — exam days are stations on one line, each 회차 a route bullet; questions are marked like an OMR sheet */
+:root{
+  --bg:#f4f5f7; --surface:#ffffff; --ink:#14181f; --muted:#5b6472; --rule:#dde1e7; --line:#2a2f38; --soft:#eef0f4;
+  --r1:#EE352E; --r2:#00933C; --r3:#0039A6; --r4:#FF6319; --r5:#B933AD;
+  --ok:#0b7a3b; --ok-bg:#e3f4ea; --bad:#c8102e; --bad-bg:#fde8eb; --mark:#14181f;
+  --display:"Black Han Sans","IBM Plex Sans KR","Apple SD Gothic Neo",sans-serif;
+  --body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#101318; --surface:#181c23; --ink:#eef0f4; --muted:#9aa3b2; --rule:#2a303a; --line:#c9ced8; --soft:#1f242d;
+  --ok:#4cc27e; --ok-bg:#15301f; --bad:#ff6b7d; --bad-bg:#3a1a20; --mark:#eef0f4; color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#101318; --surface:#181c23; --ink:#eef0f4; --muted:#9aa3b2; --rule:#2a303a; --line:#c9ced8; --soft:#1f242d;
+  --ok:#4cc27e; --ok-bg:#15301f; --bad:#ff6b7d; --bad-bg:#3a1a20; --mark:#eef0f4; color-scheme:dark}
+
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15.5px;line-height:1.65;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:760px;margin:0 auto;padding-block:32px 72px;display:flex;flex-direction:column;gap:40px}
+h1,h2,h3{text-wrap:balance;margin:0} p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible{outline:3px solid var(--r3);outline-offset:2px}
+.b{width:30px;height:30px;border-radius:50%;display:inline-grid;place-items:center;font-weight:600;font-size:15px;color:#fff;flex:none;font-family:var(--body)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.15}
+.lead{color:var(--muted);max-width:62ch}
+.sec{display:flex;flex-direction:column;gap:20px}
+.sec-head{display:flex;flex-direction:column;gap:6px}
+
+/* station sign */
+.sign{background:var(--ink);color:var(--bg);border-radius:6px;padding:22px;display:flex;flex-direction:column;gap:14px}
+.sign .bullets{display:flex;gap:6px}
+.sign h1{font-family:var(--display);font-weight:400;font-size:clamp(38px,9vw,62px);line-height:1.04}
+.sign .sub{font-size:15.5px;opacity:.85}
+.dday{font-family:var(--mono);font-weight:600;font-size:13px;letter-spacing:.06em;align-self:flex-start;border:1px solid currentColor;border-radius:3px;padding:2px 8px}
+
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.fact{background:var(--surface);padding:14px 16px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.fact .k{font-size:12px;letter-spacing:.06em;color:var(--muted)}
+.fact .v{font-weight:600;font-size:15.5px}
+.fact .v small{font-weight:400;color:var(--muted);font-size:13px;display:block}
+
+/* today */
+.today{background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:18px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.today .txt{flex:1 1 260px;min-width:0;display:flex;flex-direction:column;gap:2px}
+.today .txt b{font-size:18px}
+.today .txt span{color:var(--muted);font-size:14.5px}
+.btn{background:var(--ink);color:var(--bg);border:0;border-radius:4px;padding:10px 16px;font-weight:600;font-size:15px}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--rule)}
+.btn:disabled{opacity:.4;cursor:default}
+
+/* route */
+.route{list-style:none;margin:0;padding:0;position:relative}
+.route::before{content:"";position:absolute;left:14px;top:16px;bottom:16px;width:4px;background:var(--line);border-radius:2px}
+.stop{position:relative;padding-left:48px;padding-bottom:22px}
+.stop:last-child{padding-bottom:0}
+.stop .b{position:absolute;left:0;top:0;box-shadow:0 0 0 4px var(--bg)}
+.stop .b.rev{background:var(--surface);color:var(--ink);border:3px solid var(--line);width:30px;height:30px;box-sizing:border-box;font-size:12px}
+.stop .date{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.stop h3{font-size:17px;font-weight:600;line-height:1.4}
+.stop .hl{font-size:14px;color:var(--muted)}
+.stop.now h3::after{content:"오늘";font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.06em;margin-left:8px;padding:1px 6px;border-radius:3px;background:var(--ink);color:var(--bg);vertical-align:2px}
+.stop.past{opacity:.55}
+
+/* round cards */
+.rounds{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.rcard{background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:16px;display:flex;flex-direction:column;gap:10px;text-align:left;min-width:0}
+.rcard:hover:not(:disabled){border-color:var(--line)}
+.rcard .top{display:flex;align-items:center;gap:10px}
+.rcard .top b{font-size:17px}
+.rcard .meta{font-size:13.5px;color:var(--muted)}
+.rcard .score{font-family:var(--mono);font-size:13px;display:flex;gap:10px;flex-wrap:wrap}
+.rcard:disabled{cursor:default;opacity:.6}
+
+/* exam */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px;display:flex;flex-direction:column;gap:10px;border-bottom:1px solid var(--rule)}
+.bar .row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.bar .ttl{font-family:var(--display);font-size:22px;font-weight:400}
+.bar .sp{flex:1}
+.timer{font-family:var(--mono);font-weight:600;font-size:15px;font-variant-numeric:tabular-nums;padding:4px 8px;border-radius:4px;background:var(--surface);border:1px solid var(--rule)}
+.timer.low{color:var(--bad);border-color:var(--bad)}
+.tabs{display:flex;gap:6px;overflow-x:auto}
+.tab{background:transparent;border:1px solid var(--rule);border-radius:999px;padding:5px 12px;font-size:14px;white-space:nowrap}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tab .n{font-family:var(--mono);font-size:12px;opacity:.75;margin-left:4px}
+.modes{display:flex;border:1px solid var(--rule);border-radius:4px;overflow:hidden}
+.modes button{background:transparent;border:0;padding:5px 10px;font-size:13.5px}
+.modes button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.prog{height:4px;background:var(--rule);border-radius:2px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--line);width:0;transition:width .2s}
+
+.qlist{display:flex;flex-direction:column;gap:14px;padding-top:16px}
+.q{background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:16px;display:flex;flex-direction:column;gap:12px;scroll-margin-top:150px;min-width:0}
+.q .head{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.q .num{font-family:var(--mono);font-weight:600;font-size:15px}
+.chip{font-size:12px;color:var(--muted);border:1px solid var(--rule);border-radius:3px;padding:0 6px}
+.chip.real{color:var(--ink);border-color:var(--line)}
+.q .stem{font-weight:600;line-height:1.6}
+.passage{background:var(--soft);border-radius:4px;padding:12px 14px;font-size:14.5px;white-space:pre-line;min-width:0;overflow-x:auto}
+.passage table{border-collapse:collapse;font-size:14px;white-space:normal;font-variant-numeric:tabular-nums}
+.passage td{border:1px solid var(--rule);padding:4px 10px}
+.passage tr:first-child td{font-weight:600}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{display:flex;gap:10px;align-items:flex-start;text-align:left;background:transparent;border:1px solid transparent;border-radius:4px;padding:6px 8px;line-height:1.55}
+.opt:hover:not(:disabled){background:var(--soft)}
+.opt:disabled{cursor:default}
+.omr{flex:none;width:22px;height:30px;border:1.5px solid var(--muted);border-radius:11px;display:grid;place-items:center;font-family:var(--mono);font-size:12px;font-weight:600;color:var(--muted);margin-top:-2px}
+.opt.sel .omr{background:var(--mark);border-color:var(--mark);color:var(--bg)}
+.opt.right{background:var(--ok-bg)}
+.opt.right .omr{border-color:var(--ok);color:var(--ok)}
+.opt.right.sel .omr{background:var(--ok);color:var(--surface)}
+.opt.wrong{background:var(--bad-bg)}
+.opt.wrong .omr{background:var(--bad);border-color:var(--bad);color:var(--surface)}
+.verdict{font-weight:600;display:flex;gap:6px;align-items:center}
+.verdict.ok{color:var(--ok)} .verdict.no{color:var(--bad)}
+.expl{border-top:1px dashed var(--rule);padding-top:10px;display:flex;flex-direction:column;gap:6px;font-size:14.5px}
+.expl p{color:var(--ink)}
+
+/* results */
+.result{background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:18px;display:flex;flex-direction:column;gap:16px;margin-top:16px}
+.scores{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.scores div{background:var(--surface);padding:12px;display:flex;flex-direction:column}
+.scores .k{font-size:12px;color:var(--muted)}
+.scores .v{font-family:var(--mono);font-weight:600;font-size:22px;font-variant-numeric:tabular-nums}
+.areas{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+.areas td{padding:6px 4px;border-bottom:1px solid var(--rule)}
+.areas td:last-child{text-align:right;font-family:var(--mono)}
+.meter{height:6px;background:var(--rule);border-radius:3px;overflow:hidden;width:100%;min-width:60px}
+.meter i{display:block;height:100%;background:var(--line)}
+.sheet{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:4px}
+.sheet button{border:1px solid var(--rule);background:transparent;border-radius:3px;padding:3px 0;font-family:var(--mono);font-size:12px;font-variant-numeric:tabular-nums}
+.sheet button.o{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+.sheet button.x{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.empty{background:var(--surface);border:1px dashed var(--rule);border-radius:6px;padding:20px;color:var(--muted)}
+.confirm{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:14px}
+footer{font-size:13px;color:var(--muted);border-top:4px solid var(--line);padding-top:14px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media (max-width:480px){.sheet{grid-template-columns:repeat(5,minmax(0,1fr))}.scores .v{font-size:19px}}
+
+
+.daychips{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
+.daychips .tab{font-family:var(--mono);font-size:13px}
+.review{background:var(--surface);border:1px solid var(--bad);border-radius:6px;padding:16px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.review .txt{flex:1 1 240px;min-width:0;display:flex;flex-direction:column;gap:2px}
+.review .txt b{color:var(--bad)}
+.review .txt span{color:var(--muted);font-size:14px}
+.loading{color:var(--muted);padding-block:24px}
+</style>
+
+</head>
+<body>
+<div class="wrap" id="app"><p class="loading">문제를 불러오는 중이에요…</p></div>
+
+<script>
+(function(){
+const COLORS=['var(--r1)','var(--r2)','var(--r3)','var(--r4)','var(--r5)'];
+const SECS=[{k:0,name:'NCS',full:'NCS 직업기초능력'},{k:1,name:'일반상식',full:'일반상식'},{k:2,name:'행정학',full:'행정학'}];
+const AREA_ORDER=['의사소통','문제해결','정보','조직이해','직업윤리','국어','한국사','시사','행정학'];
+const MARK=['①','②','③','④'];
+const EXAM=new Date('2026-11-07T10:00:00+09:00');
+const FIRST='2026-10-29', LAST='2026-11-06';
+
+/* per-viewer progress (optional) */
+const KEY='nnb-exam-v2';
+let S={ans:{},done:{},mode:{},start:{}};
+try{const raw=localStorage.getItem(KEY);if(raw)S=Object.assign(S,JSON.parse(raw));}catch(e){}
+try{ /* carry over progress from the first version (rounds 1·2 = 10/29 set) */
+  if(!S.migrated){const old=JSON.parse(localStorage.getItem('nnb-exam-v1')||'null');
+    if(old){['r1','r2'].forEach(r=>{const k='2026-10-29-'+r;['ans','done','mode','start'].forEach(f=>{if(old[f]&&old[f][r]!=null&&S[f][k]==null)S[f][k]=old[f][r];});});}
+    S.migrated=1;}
+}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+
+const app=document.getElementById('app');
+let INDEX=null; const SETS={};
+const kst=()=>{const n=new Date();return new Date(n.getTime()+(n.getTimezoneOffset()+540)*60000);};
+const ymd=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const md=s=>+s.slice(5,7)+'/'+ +s.slice(8,10);
+const wd=s=>'일월화수목금토'[new Date(s+'T12:00:00+09:00').getUTCDay()];
+const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const rich=s=>esc(s).replace(/&lt;u&gt;/g,'<u>').replace(/&lt;\/u&gt;/g,'</u>');
+function passage(p){const lines=p.split('\n');let out='',tbl=[];
+  const flush=()=>{if(tbl.length){out+='<table>'+tbl.map(r=>'<tr>'+r.map(c=>'<td>'+rich(c.trim())+'</td>').join('')+'</tr>').join('')+'</table>';tbl=[];}};
+  lines.forEach((l,i)=>{if(/^\s*\|/.test(l))tbl.push(l.trim().replace(/^\||\|$/g,'').split('|'));else{flush();out+=rich(l)+(i<lines.length-1?'\n':'');}});
+  flush();return out;}
+const isReal=q=>q.src.indexOf('자체')<0;
+async function getJSON(u){const r=await fetch(u,{cache:'no-store'});if(!r.ok)throw new Error(u+' '+r.status);return r.json();}
+async function loadIndex(){if(!INDEX)INDEX=await getJSON('sets/index.json');return INDEX;}
+async function loadSet(d){if(!SETS[d])SETS[d]=await getJSON('sets/'+d+'.json');return SETS[d];}
+const rk=(d,r)=>d+'-r'+r;
+function qsOf(d,r){const s=SETS[d];return s&&s.rounds[r-1]||null;}
+function numInSec(qs,i){let n=0;for(let j=0;j<=i;j++)if(qs[j].s===qs[i].s)n++;return n;}
+function scoreOf(d,r){const qs=qsOf(d,r),a=S.ans[rk(d,r)]||{};
+  return SECS.map(sec=>{let tot=0,ok=0;qs.forEach((q,i)=>{if(q.s!==sec.k)return;tot++;if(a[i]===q.a)ok++;});return{tot,ok,pt:tot?Math.round(ok/tot*100):0};});}
+const answered=(d,r)=>Object.keys(S.ans[rk(d,r)]||{}).length;
+function wrongCount(d){const s=SETS[d];if(!s)return 0;let n=0;s.rounds.forEach((qs,ri)=>{const a=S.ans[rk(d,ri+1)]||{};qs.forEach((q,i)=>{if(a[i]!=null&&a[i]!==q.a)n++;});});return n;}
+function days(){return (INDEX&&INDEX.days||[]).map(x=>x.date).sort();}
+function todaySet(){const t=ymd(kst());const ds=days().filter(d=>d<=t);return ds.length?ds[ds.length-1]:days()[0];}
+
+/* ---------- home ---------- */
+let viewDate=null;
+async function home(){
+  await loadIndex();
+  const now=kst(),today=ymd(now);const dleft=Math.ceil((EXAM-now)/86400000);
+  const cur=todaySet();if(!viewDate||days().indexOf(viewDate)<0)viewDate=cur;
+  await loadSet(viewDate);
+  const prev=days().filter(d=>d<viewDate).pop();if(prev)await loadSet(prev).catch(()=>{});
+  const set=SETS[viewDate];
+  let h=`<header class="sign"><div class="bullets" aria-hidden="true">${COLORS.map((c,i)=>`<span class="b" style="background:${c}">${i+1}</span>`).join('')}</div>
+  <h1>너와 나의<br>기출문제</h1><p class="sub">수원시정연구원 행정직 7급 필기 대비 · 매일 아침 새 모의고사 5회분(450문항)</p>
+  <span class="dday">${dleft>0?'D-'+dleft:dleft===0?'D-DAY':'시험 종료'} · 2026. 11. 7.(토) 10:00</span></header>`;
+  h+=`<section class="facts" aria-label="시험 구성">
+   <div class="fact"><span class="k">공통 · NCS</span><span class="v">50문항 · 60분<small>의사소통·문제해결·정보·조직이해·직업윤리 각 10</small></span></div>
+   <div class="fact"><span class="k">전문 1 · 일반상식</span><span class="v">20문항<small>국어 8 · 한국사 8 · 시사 4</small></span></div>
+   <div class="fact"><span class="k">전문 2 · 행정학</span><span class="v">20문항<small>전문 2과목 합쳐 40분</small></span></div>
+   <div class="fact"><span class="k">형식</span><span class="v">객관식 4지선다<small>과목별 100점 · 총 100분</small></span></div></section>`;
+  // review first
+  const pw=prev?wrongCount(prev):0;
+  if(pw>0)h+=`<section class="review" aria-label="복습"><div class="txt"><b>먼저, ${md(prev)} 세트에서 틀린 ${pw}문항</b><span>새 문제를 풀기 전에 어제 틀린 문제를 다시 풀어 보세요. 점수는 여기서 가장 많이 올라요.</span></div><button class="btn" data-wrong="${prev}">다시 풀기</button></section>`;
+  // set picker + rounds
+  h+=`<section class="sec"><div class="sec-head"><span class="eyebrow">${viewDate===today?'Today':'Set'} · ${md(viewDate)}(${wd(viewDate)})</span><h2>${md(viewDate)} 모의고사 5회분</h2>
+   <p class="lead">${esc(set.note||'회차마다 90문항, 실제 시험과 같은 과목 구성이에요. 문항마다 출처를 붙였어요.')}</p></div>`;
+  if(days().length>1)h+=`<div class="daychips" role="tablist" aria-label="날짜별 세트">${days().map(d=>`<button class="tab" role="tab" data-day="${d}" aria-selected="${d===viewDate}">${md(d)}(${wd(d)})</button>`).join('')}</div>`;
+  h+=`<div class="rounds">`;
+  set.rounds.forEach((qs,ri)=>{const r=ri+1,k=rk(viewDate,r),n=answered(viewDate,r),done=S.done[k];const real=qs.filter(isReal).length;
+    const sc=n?scoreOf(viewDate,r):null;
+    h+=`<button class="rcard" data-go="${viewDate}-r${r}"><div class="top"><span class="b" style="background:${COLORS[ri%5]}">${r}</span><b>${r}회차</b></div>
+     <span class="meta">90문항 · 실제 기출·공식 문항 ${real}개</span>
+     <span class="score">${n===0?'아직 안 풀었어요':done?SECS.map((s,i)=>`${s.name} ${sc[i].pt}`).join(' · '):`${n}/90 풀이 중`}</span></button>`;});
+  h+=`</div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" data-go="wrong">전체 오답노트</button></div></section>`;
+  // route
+  h+=`<section class="sec"><div class="sec-head"><span class="eyebrow">Route</span><h2>시험까지 노선도</h2><p class="lead">매일 아침 새 5회분이 올라와요. 전날 오답을 먼저, 그다음 새 세트를 푸는 순서예요.</p></div><ol class="route">`;
+  let d=new Date(FIRST+'T12:00:00+09:00');const list=[];
+  while(ymd(new Date(d.getTime()))<=LAST){list.push(ymd(d));d=new Date(d.getTime()+86400000);}
+  list.forEach((x,i)=>{const has=days().indexOf(x)>=0;const cls=x===today?'now':(x<today?'past':'');
+    const t=x==='2026-11-06'?'새 세트 + 전체 오답 정리':i===0?'첫 세트 5회분':'어제 오답 → 새 5회분';
+    const hl=x==='2026-11-06'?'마지막 세트는 가볍게, 오답노트 위주로. 일찍 자기.':x==='2026-11-05'?'실전 모드(100분)로 시험 시간대에 맞춰 풀어 보기.':has?'세트가 올라와 있어요.':'아침에 올라와요.';
+    h+=`<li class="stop ${cls}"><span class="b" style="background:${COLORS[i%5]}">${i+1}</span><span class="date">${md(x)}(${wd(x)})</span><h3>${t}</h3><p class="hl">${hl}</p></li>`;});
+  h+=`<li class="stop ${today==='2026-11-07'?'now':''}"><span class="b" style="background:var(--ink);color:var(--bg)">D</span><span class="date">11/7(토) 10:00</span><h3>필기시험</h3><p class="hl">수원시정연구원 필기전형. 신분증, 컴퓨터용 사인펜 챙기기.</p></li></ol></section>`;
+  h+=`<footer>'국가직 9급·7급'과 'NCS 공식 문항집' 표시는 실제 문항이고, 나머지는 같은 유형으로 새로 만든 문항이에요. 시사는 출제일 기준이고, 법령·정부조직 문항은 시험 직전 최신 내용을 한 번 더 확인하세요. 푼 기록은 이 기기의 브라우저에만 저장돼요.</footer>`;
+  app.innerHTML=h;
+}
+
+/* ---------- exam ---------- */
+let timerId=null,cur={d:null,r:null,sec:0};
+function exam(d,r,secK){
+  const qs=qsOf(d,r);const k=rk(d,r);S.ans[k]=S.ans[k]||{};
+  const mode=S.mode[k]||'study',done=!!S.done[k],a=S.ans[k];cur={d,r,sec:secK};
+  const counts=SECS.map(s=>qs.filter(q=>q.s===s.k).length);
+  let h=`<div class="bar"><div class="row"><span class="b" style="background:${COLORS[(r-1)%5]}">${r}</span><span class="ttl">${md(d)} · ${r}회차</span><span class="sp"></span>
+   ${done?'':`<div class="modes" role="group" aria-label="풀이 방식"><button data-mode="study" aria-pressed="${mode==='study'}">학습</button><button data-mode="real" aria-pressed="${mode==='real'}">실전 100분</button></div>`}
+   ${mode==='real'&&!done?`<span class="timer" id="timer">100:00</span>`:''}
+   <button class="btn ghost" data-go="" style="padding:5px 10px;font-size:13.5px">홈</button></div>
+   <div class="tabs" role="tablist">${SECS.map((s,i)=>`<button class="tab" role="tab" data-sec="${s.k}" aria-selected="${s.k===secK}">${s.name}<span class="n">${Object.keys(a).filter(x=>qs[x].s===s.k).length}/${counts[i]}</span></button>`).join('')}</div>
+   <div class="prog"><i style="width:${answered(d,r)/qs.length*100}%"></i></div></div>`;
+  if(done)h+=resultBox(d,r);
+  else h+=`<p class="lead" style="padding-top:14px">${mode==='study'?"학습 모드: 답을 고르면 바로 채점되고 해설이 열려요. 실전처럼 풀려면 위에서 '실전 100분'을 누르세요.":"실전 모드: 끝까지 풀고 맨 아래 '답안 제출'을 누르면 한꺼번에 채점돼요. NCS는 60분 안에 끝내는 걸 목표로 하세요."}</p>`;
+  h+=`<div class="qlist">`;qs.forEach((q,i)=>{if(q.s===secK)h+=qCard(d,r,q,i,mode,done);});h+=`</div>`;
+  const nx=SECS.find(s=>s.k===secK+1);
+  h+=`<div style="display:flex;gap:10px;flex-wrap:wrap;padding-top:18px">${nx?`<button class="btn ghost" data-sec="${nx.k}">다음 과목: ${nx.name}</button>`:''}
+   ${!done?`<span id="submitArea"><button class="btn" id="submitBtn">${mode==='real'?'답안 제출':'채점 결과 보기'}</button></span>`:`<span id="resetArea"><button class="btn ghost" id="resetBtn">이 회차 다시 풀기</button></span>`}</div>`;
+  app.innerHTML=h;
+  if(mode==='real'&&!done)startTimer();else stopTimer();
+}
+function head(q,qs,i,bullet){return `<div class="head">${bullet||''}<span class="num">${numInSec(qs,i)}.</span><span class="chip">${esc(q.ar)}</span><span class="chip ${isReal(q)?'real':''}">${esc(q.src)}</span></div>`+(q.p?`<div class="passage">${passage(q.p)}</div>`:'')+`<p class="stem">${rich(q.q)}</p>`;}
+function opts(q,sel,show,attr){return `<div class="opts">`+q.o.map((o,k)=>{let c='opt';if(sel===k)c+=' sel';if(show){if(k===q.a)c+=' right';else if(sel===k)c+=' wrong';}
+  return `<button class="${c}" ${attr} data-k="${k}" ${show?'disabled':''}><span class="omr">${k+1}</span><span>${rich(o)}</span></button>`;}).join('')+`</div>`;}
+function qCard(d,r,q,i,mode,done){const sel=S.ans[rk(d,r)][i];const show=done||(mode==='study'&&sel!=null);
+  let h=`<article class="q" id="q${i}">`+head(q,qsOf(d,r),i)+opts(q,sel,show,`data-q="${i}"`);
+  if(show){const ok=sel===q.a;h+=`<div class="expl"><span class="verdict ${ok?'ok':'no'}">${sel==null?'안 푼 문항 · 정답 '+MARK[q.a]:ok?'○ 정답이에요':'✕ 오답 · 정답은 '+MARK[q.a]}</span><p>${rich(q.e)}</p></div>`;}
+  return h+`</article>`;}
+function resultBox(d,r){const qs=qsOf(d,r),a=S.ans[rk(d,r)],sc=scoreOf(d,r);
+  let h=`<section class="result" aria-label="채점 결과"><span class="eyebrow">Result</span><div class="scores">${SECS.map((s,i)=>`<div><span class="k">${s.full}</span><span class="v">${sc[i].pt}점</span><span class="k">${sc[i].ok}/${sc[i].tot}개</span></div>`).join('')}</div>`;
+  const ar={};qs.forEach((q,i)=>{const x=ar[q.ar]=ar[q.ar]||{t:0,o:0};x.t++;if(a[i]===q.a)x.o++;});
+  h+=`<table class="areas"><tbody>${AREA_ORDER.filter(k=>ar[k]).map(k=>{const x=ar[k],p=Math.round(x.o/x.t*100);return `<tr><td style="width:84px">${k}</td><td><div class="meter"><i style="width:${p}%"></i></div></td><td style="width:64px">${x.o}/${x.t}</td></tr>`;}).join('')}</tbody></table>`;
+  SECS.forEach(s=>{h+=`<div><span class="eyebrow">${s.name} 답안지</span><div class="sheet" style="margin-top:6px">`;
+    qs.forEach((q,i)=>{if(q.s!==s.k)return;const n=numInSec(qs,i),c=a[i]===q.a?'o':'x';h+=`<button class="${c}" data-jump="${i}" data-jsec="${s.k}" aria-label="${s.name} ${n}번 ${c==='o'?'정답':'오답'}">${n}</button>`;});h+=`</div></div>`;});
+  return h+`</section>`;}
+function startTimer(){stopTimer();const k=rk(cur.d,cur.r);if(!S.start[k]){S.start[k]=Date.now();save();}
+  const tick=()=>{const left=Math.max(0,6e6-(Date.now()-S.start[k]));const el=document.getElementById('timer');
+    if(el){const m=Math.floor(left/6e4),s=Math.floor(left%6e4/1e3);el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');el.classList.toggle('low',left<6e5);}
+    if(left<=0){stopTimer();S.done[k]=true;save();exam(cur.d,cur.r,0);}};tick();timerId=setInterval(tick,1000);}
+function stopTimer(){if(timerId){clearInterval(timerId);timerId=null;}}
+
+/* ---------- wrong note ---------- */
+let wf='all',retry={};
+async function wrongNote(){
+  await loadIndex();await Promise.all(days().map(d=>loadSet(d).catch(()=>null)));
+  let h=`<div class="bar"><div class="row"><span class="ttl">오답노트</span><span class="sp"></span><button class="btn ghost" data-go="" style="padding:5px 10px;font-size:13.5px">홈</button></div>
+   <div class="daychips">${['all'].concat(days()).map(x=>`<button class="tab" data-wf="${x}" aria-selected="${x===wf}">${x==='all'?'전체':md(x)}</button>`).join('')}</div></div>`;
+  const items=[];
+  days().forEach(d=>{if(wf!=='all'&&wf!==d)return;const s=SETS[d];if(!s)return;s.rounds.forEach((qs,ri)=>{const a=S.ans[rk(d,ri+1)]||{};qs.forEach((q,i)=>{if(a[i]!=null&&a[i]!==q.a)items.push({d,r:ri+1,q,i,qs});});});});
+  if(!items.length)h+=`<div class="empty" style="margin-top:16px">${wf==='all'?'아직 틀린 문항이 없어요. 회차를 풀면 틀린 문항이 여기에 모여요.':md(wf)+' 세트에서 틀린 문항이 없어요.'} 다시 풀 때는 처음 골랐던 답을 가리고 보여 드려요.</div>`;
+  else{items.sort((x,y)=>AREA_ORDER.indexOf(x.q.ar)-AREA_ORDER.indexOf(y.q.ar));
+    h+=`<p class="lead" style="padding-top:14px">틀린 문항 ${items.length}개를 영역 순서로 모았어요. 답을 다시 고르면 정답과 해설이 열려요.</p><div class="qlist">`;
+    items.forEach(({d,r,q,i,qs})=>{const key=d+'|'+r+'|'+i,re=retry[key],show=re!=null;
+      const bullet=`<span class="b" style="background:${COLORS[(r-1)%5]};width:22px;height:22px;font-size:12px">${r}</span><span class="chip">${md(d)}</span>`;
+      h+=`<article class="q">`+head(q,qs,i,bullet)+opts(q,re,show,`data-rk="${key}"`);
+      if(show)h+=`<div class="expl"><span class="verdict ${re===q.a?'ok':'no'}">${re===q.a?'○ 이번엔 맞혔어요':'✕ 또 틀렸어요 · 정답은 '+MARK[q.a]}</span><p>${rich(q.e)}</p></div>`;
+      h+=`</article>`;});h+=`</div>`;}
+  app.innerHTML=h;
+}
+
+/* ---------- routing ---------- */
+async function route(){stopTimer();const hs=location.hash.replace('#','');
+  try{
+    const m=/^(\d{4}-\d{2}-\d{2})-r([1-9])$/.exec(hs);
+    if(m){await loadIndex();await loadSet(m[1]);if(qsOf(m[1],+m[2])){exam(m[1],+m[2],0);window.scrollTo(0,0);return;}}
+    if(hs==='wrong'){retry={};await wrongNote();window.scrollTo(0,0);return;}
+    await home();window.scrollTo(0,0);
+  }catch(e){app.innerHTML=`<div class="empty">문제 파일을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요.</div>`;}
+}
+app.addEventListener('click',async e=>{const t=e.target.closest('button');if(!t)return;
+  if(t.dataset.go!=null){if(location.hash.replace('#','')===t.dataset.go)route();else location.hash=t.dataset.go;return;}
+  if(t.dataset.day){viewDate=t.dataset.day;await home();return;}
+  if(t.dataset.wrong){wf=t.dataset.wrong;location.hash='wrong';return;}
+  if(t.dataset.wf){wf=t.dataset.wf;retry={};await wrongNote();return;}
+  if(t.dataset.rk!=null){retry[t.dataset.rk]=+t.dataset.k;const y=scrollY;await wrongNote();scrollTo(0,y);return;}
+  const {d,r}=cur;if(!d)return;const k=rk(d,r);
+  if(t.dataset.sec!=null){exam(d,r,+t.dataset.sec);scrollTo(0,0);return;}
+  if(t.dataset.mode){if(t.dataset.mode==='real'&&S.mode[k]!=='real')S.start[k]=Date.now();S.mode[k]=t.dataset.mode;save();exam(d,r,cur.sec);return;}
+  if(t.dataset.q!=null){S.ans[k][+t.dataset.q]=+t.dataset.k;save();const y=scrollY;exam(d,r,cur.sec);scrollTo(0,y);return;}
+  if(t.id==='submitBtn'){const left=qsOf(d,r).length-answered(d,r);document.getElementById('submitArea').innerHTML=`<span class="confirm">${left?`안 푼 문항이 ${left}개 있어요. `:''}제출하면 채점돼요.<button class="btn" id="submitYes">제출</button><button class="btn ghost" id="submitNo">계속 풀기</button></span>`;return;}
+  if(t.id==='submitNo'){exam(d,r,cur.sec);return;}
+  if(t.id==='submitYes'){S.done[k]=true;save();exam(d,r,0);scrollTo(0,0);return;}
+  if(t.id==='resetBtn'){document.getElementById('resetArea').innerHTML=`<span class="confirm">기록을 지우고 처음부터 풀까요?<button class="btn" id="resetYes">다시 풀기</button><button class="btn ghost" id="resetNo">취소</button></span>`;return;}
+  if(t.id==='resetNo'){exam(d,r,cur.sec);return;}
+  if(t.id==='resetYes'){delete S.ans[k];delete S.done[k];delete S.start[k];delete S.mode[k];save();exam(d,r,0);scrollTo(0,0);return;}
+  if(t.dataset.jump!=null){exam(d,r,+t.dataset.jsec);const el=document.getElementById('q'+t.dataset.jump);if(el)el.scrollIntoView();return;}
+});
+window.addEventListener('hashchange',route);
+route();
+})();
+</script>
+
+</body></html>
